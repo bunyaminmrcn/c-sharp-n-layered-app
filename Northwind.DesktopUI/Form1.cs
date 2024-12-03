@@ -72,33 +72,50 @@ namespace Northwind.DesktopUI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _productService.Add(new Product
-            {
-                CategoryId = Convert.ToInt32(cbxCategory2.SelectedValue),
-                ProductName = tbxProductName2.Text,
-                QuantityPerUnit = tbxQuantityPU.Text,
-                UnitPrice = Convert.ToDecimal(tbxUnitPrice.Text),
-                UnitsInStock = Convert.ToInt16(tbxStock.Text)
 
-            });
-            MessageBox.Show("Product Added");
-            LoadProducts();
+            try
+            {
+                _productService.Add(new Product
+                {
+                    CategoryId = Convert.ToInt32(cbxCategory2.SelectedValue),
+                    ProductName = tbxProductName2.Text,
+                    QuantityPerUnit = tbxQuantityPU.Text,
+                    UnitPrice = Convert.ToDecimal(tbxUnitPrice.Text),
+                    UnitsInStock = Convert.ToInt16(tbxStock.Text)
+
+                });
+                MessageBox.Show("Product Added");
+                LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            _productService.Update(new Product
+            try
             {
-                ProductId = Convert.ToInt32(dgvProducts.CurrentRow.Cells[0].Value),
-                CategoryId = Convert.ToInt32(cbxUpdateCategory.SelectedValue),
-                ProductName = tbxUpdateName.Text,
-                QuantityPerUnit = tbxUpdateQuantity.Text,
-                UnitPrice = Convert.ToDecimal(tbxUpdatePrice.Text),
-                UnitsInStock = Convert.ToInt16(tbxUpdateStock.Text)
+                _productService.Update(new Product
+                {
+                    ProductId = Convert.ToInt32(dgvProducts.CurrentRow.Cells[0].Value),
+                    CategoryId = Convert.ToInt32(cbxUpdateCategory.SelectedValue),
+                    ProductName = tbxUpdateName.Text,
+                    QuantityPerUnit = tbxUpdateQuantity.Text,
+                    UnitPrice = Convert.ToDecimal(tbxUpdatePrice.Text),
+                    UnitsInStock = Convert.ToInt16(tbxUpdateStock.Text)
 
-            });
-            MessageBox.Show("Product Updated");
-            LoadProducts();
+                });
+                MessageBox.Show("Product Updated");
+                LoadProducts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void dgvProducts_CellClick(object sender, DataGridViewCellEventArgs e)
